@@ -1,0 +1,56 @@
+<div class="container">
+
+  <h1>Angular dynamic form control</h1>
+
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+    <div class="col-3">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" formControlName="name" class="form-control" aria-placeholder="Full Name" required>
+    </div>
+
+    <table class="table table-bordered mt-5" formArrayName="registration">
+      <tr>
+        <th colspan="2">Add Address</th>
+        <th width="150px">
+          <div>
+  <button type="button" (click)="addAddress()" class="btn btn-outline-primary">
+    <fa-icon [icon]="faPlusSquare"></fa-icon> Add More
+  </button>
+          </div>
+        
+        </th>
+      </tr>
+      <tr *ngFor="let register of registration().controls; let i=index" [formGroupName]="i">
+        <td class="mt-3">
+          <div class="form-group">
+<label class="form-control-label">Phone Number :</label> 
+<input type="number" formControlName="PhoneNumber" class="form-control">
+          </div>
+         
+        </td>
+        <td>
+          <div class="form-group">
+          <label class="form-control-label">Email:</label>
+          <input type="email" formControlName="Email" class="form-control">
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <br/>
+          <button (click)="removeAddress(i)" class="btn btn-danger"><fa-icon [icon]="faTrashAlt"></fa-icon> Remove</button>
+          </div>
+
+        </td>
+      </tr>
+    </table>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+
+  <br />
+  {{this.registrationForm.value | json}}
+</div>
+
+<router-outlet></router-outlet>
